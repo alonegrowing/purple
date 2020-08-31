@@ -1,0 +1,11 @@
+service_name="purple"
+
+[log]
+level="debug"
+rotate="hour"
+logpath = "./logs"
+
+[[database]]
+name="intersting"
+master = "root:hope@tcp(127.0.0.1:3306)/intersting?charset=utf8"
+slaves = ["root:hope@tcp(127.0.0.1:3306)/intersting?charset=utf8"]
