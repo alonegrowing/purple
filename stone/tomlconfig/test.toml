@@ -1,0 +1,9 @@
+[log]
+level="info"
+rotate="hour"
+logpath = "./logs"
+
+[[database]]
+name="test1"
+master = "admin_user:ar46yJv34jfd@tcp(rm-2zej5vr9490158hv0.mysql.rds.aliyuncs.com)/live_serviceinfo?charset=utf8"
+slaves = ["admin_user:ar46yJv34jfd@tcp(rm-2zej5vr9490158hv0.mysql.rds.aliyuncs.com)/live_serviceinfo?charset=utf8"]
