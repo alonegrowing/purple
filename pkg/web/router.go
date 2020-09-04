@@ -1,10 +1,10 @@
 package web
 
 import (
-	"github.com/gin-gonic/gin"
 	"purple/middleware"
-	"purple/web/handler"
+	handler2 "purple/pkg/web/handler"
 
+	"github.com/gin-gonic/gin"
 )
 
 func NewRouter() *gin.Engine {
@@ -17,7 +17,7 @@ func NewRouter() *gin.Engine {
 		c.String(200, "pong")
 	})
 
-	memberHandler := handler.NewHomePageHandler()
+	memberHandler := handler2.NewHomePageHandler()
 
 	// 路由定义
 	route.GET("/api/member", middleware.Auth(), memberHandler.Get)

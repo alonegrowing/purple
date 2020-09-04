@@ -1,8 +1,8 @@
 package resource
 
 import (
+	"purple/pkg/config"
 	"purple/stone/sql"
-	"purple/config"
 )
 
 var DefaultDB *sql.Group

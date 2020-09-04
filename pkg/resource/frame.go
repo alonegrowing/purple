@@ -1,8 +1,8 @@
 package resource
 
 import (
+	"purple/pkg/config"
 	log "purple/stone/logging"
-	"purple/config"
 )
 
 func init() {
