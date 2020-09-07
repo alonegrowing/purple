@@ -1,0 +1,8 @@
+counter格式的：['emit', 'counter', 'test.test.counter', '1.87404547184', 'ip=2|cd=1', '']
+store格式的：['emit', 'store', 'test.test.store', '1.87404547184', 'ip=2|cd=1', '']
+timer格式的：['emit', 'timer', 'frame.thrift.client', '1.87404547184', 'status_code=0|remote_ps=frame.thrift.server2|remote_host=3|method=func2', '']
+
+
+
+
+

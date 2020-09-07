@@ -13,8 +13,8 @@ import (
 	"strings"
 	"time"
 
-	"git.inke.cn/BackendPlatform/golang/logagent"
-	log "git.inke.cn/BackendPlatform/golang/logging"
+	"purple/stone/logagent"
+	log "purple/stone/logging"
 	"github.com/olekukonko/tablewriter"
 )
 
