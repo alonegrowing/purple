@@ -3,6 +3,8 @@ package config
 import (
 	"purple/stone/sql"
 	"purple/stone/tomlconfig"
+	"purple/stone/redis"
+	"purple/pkg/resource"
 )
 
 var (
@@ -12,8 +14,18 @@ var (
 
 func init() {
 	var conf = "./conf/prod/config.toml"
+
+	// config parser
 	tomlconfig.ParseTomlConfig(conf, &ServiceConfig)
+
+	// logger init
 	DefaultLoggerConfig.InitLoggerConfig(ServiceConfig.Logger)
+
+	// redis init
+	resource.NewRedis(ServiceConfig.Redis)
+
+	// mysql init
+	resource.NewMysqlGroup(ServiceConfig.Database)
 }
 
 type LoggerConfig struct {
@@ -26,4 +38,5 @@ type Config struct {
 	ServiceName string               `toml:"service_name"`
 	Logger      LoggerConfig         `toml:"log"`
 	Database    []sql.SQLGroupConfig `toml:"database"`
+	Redis       []redis.RedisConfig  `toml:"redis"`
 }

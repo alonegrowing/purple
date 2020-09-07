@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	pb "purple/gen-go/user"
+	"purple/gen-go/purple"
 
 	"google.golang.org/grpc"
 )
@@ -22,12 +22,12 @@ func main() {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	c := pb.NewMemberClient(conn)
+	c := purple.NewPurpleClient(conn)
 
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.GetMember(ctx, &pb.GetMemberParam{Id: 1})
+	r, err := c.GetHomePage(ctx, &purple.ParamHomePage{Id: 1226})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}

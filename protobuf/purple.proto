@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option go_package = "/purple";
+
+package purple;
+
+message ParamHomePage {
+    int64 id = 1;
+}
+
+message ResHomePage {
+    int64 id = 1;
+    string name = 2;
+}
+
+message PurpleError {
+    int64 code = 1;
+    string msg = 2;
+}
+
+
+service Purple {
+    rpc GetHomePage (ParamHomePage) returns (ResHomePage) {}
+}

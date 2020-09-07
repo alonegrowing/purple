@@ -1,17 +1,10 @@
 package resource
 
 import (
-	"purple/pkg/config"
 	"purple/stone/sql"
 )
 
 var DefaultDB *sql.Group
-
-func init() {
-	NewMysqlGroup(config.ServiceConfig.Database)
-
-	DefaultDB = sql.SQLGroupManager.Get("intersting")
-}
 
 func NewMysqlGroup(database []sql.SQLGroupConfig) error {
 	if len(database) == 0 {
@@ -28,4 +21,8 @@ func NewMysqlGroup(database []sql.SQLGroupConfig) error {
 		}
 	}
 	return nil
+}
+
+func GetMysql(service string)  *sql.Group{
+	return sql.SQLGroupManager.Get(service)
 }

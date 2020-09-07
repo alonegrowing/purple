@@ -9,3 +9,17 @@ logpath = "./logs"
 name="intersting"
 master = "root:hope@tcp(127.0.0.1:3306)/intersting?charset=utf8"
 slaves = ["root:hope@tcp(127.0.0.1:3306)/intersting?charset=utf8"]
+
+
+[[redis]]
+server_name="redis_service"
+addr="r-2ze6f52153d74ed4.redis.rds.aliyuncs.com:6379"
+password="jlhjsg38905BD"
+max_idle=100
+max_active=500
+idle_timeout=1000
+connect_timeout=300
+read_timeout=600
+write_timeout=600
+database=0
+slow_time = 200
