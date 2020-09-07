@@ -9,7 +9,8 @@ import (
 	//"google.golang.org/grpc"
 	pb "purple/gen-go/user"
 
-	"github.com/golang/protobuf/proto"
+	//"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 const (
