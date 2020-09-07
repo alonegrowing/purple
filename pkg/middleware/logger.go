@@ -4,7 +4,11 @@ import (
 	"strings"
 	"time"
 	"github.com/gin-gonic/gin"
+<<<<<<< HEAD
 	log "git.ur7.cn/opd/service/intersting/box/logging"
+=======
+	log "purple/stone/logging"
+>>>>>>> 02f03a1d7b0cb86b2ad09de7b4ef5e972704e38e
 )
 
 // 登陆校验 中间件

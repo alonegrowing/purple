@@ -2,4 +2,14 @@ module purple
 
 go 1.14
 
-require github.com/golang/protobuf v1.4.2 // indirect
+require (
+	github.com/BurntSushi/toml v0.3.1
+	github.com/gin-gonic/gin v1.6.3
+	github.com/go-sql-driver/mysql v1.5.0
+	github.com/golang/protobuf v1.4.2
+	github.com/jinzhu/gorm v1.9.16
+	github.com/sirupsen/logrus v1.6.0
+	go.uber.org/zap v1.16.0
+	google.golang.org/grpc v1.31.1
+	google.golang.org/protobuf v1.25.0
+)
