@@ -29,8 +29,8 @@ func init() {
 }
 
 type Service struct {
-	WEBPort int64 `tomo:"web_port"`
-	RPCPort int64 `tomo:"rpc_port"`
+	WEBPort int64 `toml:"web_port"`
+	RPCPort int64 `toml:"rpc_port"`
 }
 
 type Config struct {
