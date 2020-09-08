@@ -27,7 +27,7 @@ func main() {
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.GetHomePage(ctx, &purple.ParamHomePage{Id: 1226})
+	r, err := c.GetHomePage(ctx, &purple.HomePageParam{Id: 1226})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}

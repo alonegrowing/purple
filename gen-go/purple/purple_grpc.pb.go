@@ -17,7 +17,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PurpleClient interface {
-	GetHomePage(ctx context.Context, in *ParamHomePage, opts ...grpc.CallOption) (*ResHomePage, error)
+	GetHomePage(ctx context.Context, in *HomePageParam, opts ...grpc.CallOption) (*HomePageResponse, error)
 }
 
 type purpleClient struct {
@@ -32,8 +32,8 @@ var purpleGetHomePageStreamDesc = &grpc.StreamDesc{
 	StreamName: "GetHomePage",
 }
 
-func (c *purpleClient) GetHomePage(ctx context.Context, in *ParamHomePage, opts ...grpc.CallOption) (*ResHomePage, error) {
-	out := new(ResHomePage)
+func (c *purpleClient) GetHomePage(ctx context.Context, in *HomePageParam, opts ...grpc.CallOption) (*HomePageResponse, error) {
+	out := new(HomePageResponse)
 	err := c.cc.Invoke(ctx, "/purple.Purple/GetHomePage", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -46,11 +46,11 @@ func (c *purpleClient) GetHomePage(ctx context.Context, in *ParamHomePage, opts 
 // RegisterPurpleService is called.  Any unassigned fields will result in the
 // handler for that method returning an Unimplemented error.
 type PurpleService struct {
-	GetHomePage func(context.Context, *ParamHomePage) (*ResHomePage, error)
+	GetHomePage func(context.Context, *HomePageParam) (*HomePageResponse, error)
 }
 
 func (s *PurpleService) getHomePage(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ParamHomePage)
+	in := new(HomePageParam)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func (s *PurpleService) getHomePage(_ interface{}, ctx context.Context, dec func
 		FullMethod: "/purple.Purple/GetHomePage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.GetHomePage(ctx, req.(*ParamHomePage))
+		return s.GetHomePage(ctx, req.(*HomePageParam))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -71,7 +71,7 @@ func (s *PurpleService) getHomePage(_ interface{}, ctx context.Context, dec func
 func RegisterPurpleService(s grpc.ServiceRegistrar, srv *PurpleService) {
 	srvCopy := *srv
 	if srvCopy.GetHomePage == nil {
-		srvCopy.GetHomePage = func(context.Context, *ParamHomePage) (*ResHomePage, error) {
+		srvCopy.GetHomePage = func(context.Context, *HomePageParam) (*HomePageResponse, error) {
 			return nil, status.Errorf(codes.Unimplemented, "method GetHomePage not implemented")
 		}
 	}
@@ -99,7 +99,7 @@ func RegisterPurpleService(s grpc.ServiceRegistrar, srv *PurpleService) {
 func NewPurpleService(s interface{}) *PurpleService {
 	ns := &PurpleService{}
 	if h, ok := s.(interface {
-		GetHomePage(context.Context, *ParamHomePage) (*ResHomePage, error)
+		GetHomePage(context.Context, *HomePageParam) (*HomePageResponse, error)
 	}); ok {
 		ns.GetHomePage = h.GetHomePage
 	}
@@ -111,5 +111,5 @@ func NewPurpleService(s interface{}) *PurpleService {
 // definition, which is not a backward-compatible change.  For this reason,
 // use of this type is not recommended.
 type UnstablePurpleService interface {
-	GetHomePage(context.Context, *ParamHomePage) (*ResHomePage, error)
+	GetHomePage(context.Context, *HomePageParam) (*HomePageResponse, error)
 }

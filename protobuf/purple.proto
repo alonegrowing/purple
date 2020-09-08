@@ -4,21 +4,16 @@ option go_package = "/purple";
 
 package purple;
 
-message ParamHomePage {
+message HomePageParam {
     int64 id = 1;
 }
 
-message ResHomePage {
+message HomePageResponse {
     int64 id = 1;
     string name = 2;
 }
 
-message PurpleError {
-    int64 code = 1;
-    string msg = 2;
-}
-
 
 service Purple {
-    rpc GetHomePage (ParamHomePage) returns (ResHomePage) {}
+    rpc GetHomePage (HomePageParam) returns (HomePageResponse) {}
 }

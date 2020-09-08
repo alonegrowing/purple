@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "/purple";
+
+package member;
+
+message GetMemberParam {
+    int64 id = 1;
+}
+
+message MemberResponse {
+    int64 id = 1;
+    string name = 2;
+}
+
+
+service Member {
+    rpc GetMember (GetMemberParam) returns (MemberResponse) {}
+}

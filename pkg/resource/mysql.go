@@ -23,6 +23,6 @@ func NewMysqlGroup(database []sql.SQLGroupConfig) error {
 	return nil
 }
 
-func GetMysql(service string)  *sql.Group{
+func GetMysql(service string) *sql.Group {
 	return sql.SQLGroupManager.Get(service)
 }
