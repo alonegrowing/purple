@@ -5,10 +5,12 @@ import (
 	"purple/pkg/web/handler"
 
 	"github.com/gin-gonic/gin"
+	"io/ioutil"
 )
 
 func NewRouter() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
+	gin.DefaultWriter = ioutil.Discard
 
 	route := gin.Default()
 	route.Use(middleware.Logger())
