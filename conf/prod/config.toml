@@ -1,5 +1,9 @@
 service_name="purple"
 
+[service]
+web_port = 8888
+rpc_port = 8889
+
 [log]
 level="debug"
 rotate="hour"
@@ -7,14 +11,14 @@ logpath = "./logs"
 
 [[database]]
 name="intersting"
-master = "root:hope@tcp(127.0.0.1:3306)/intersting?charset=utf8"
-slaves = ["root:hope@tcp(127.0.0.1:3306)/intersting?charset=utf8"]
+master = "root:hope@tcp(127.0.0.1:3306)/purple?charset=utf8mb4"
+slaves = ["root:hope@tcp(127.0.0.1:3306)/purple?charset=utf8mb4"]
 
 
 [[redis]]
-server_name="redis_service"
-addr="r-2ze6f52153d74ed4.redis.rds.aliyuncs.com:6379"
-password="jlhjsg38905BD"
+server_name="purple"
+addr="127.0.0.1:6379"
+password="hope"
 max_idle=100
 max_active=500
 idle_timeout=1000

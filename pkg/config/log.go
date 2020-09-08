@@ -1,26 +1,16 @@
 package config
 
-import log "purple/stone/logging"
+import (
+	log "purple/stone/logging"
+)
 
-
-type LoggerConfiger interface{
-	InitLoggerConfig(conf LoggerConfig)
+type LoggerConfig struct {
+	Rotate  string `toml:"rotate"`
+	Level   string `toml:"level"`
+	LogPath string `toml:"logpath"`
 }
 
-type LoggerConfigerImpl struct {}
-
-var DefaultLoggerConfig LoggerConfiger
-
-func init() {
-	DefaultLoggerConfig = NewLoggerConfigerImpl()
-}
-
-func NewLoggerConfigerImpl() *LoggerConfigerImpl {
-	return &LoggerConfigerImpl{
-	}
-}
-
-func (r *LoggerConfigerImpl) InitLoggerConfig(conf LoggerConfig) {
+func InitLoggerConfig(conf LoggerConfig) {
 	if conf.Rotate == logRotate {
 		log.SetRotateByHour()
 	} else {

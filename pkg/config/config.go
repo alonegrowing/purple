@@ -1,10 +1,10 @@
 package config
 
 import (
+	"purple/pkg/resource"
+	"purple/stone/redis"
 	"purple/stone/sql"
 	"purple/stone/tomlconfig"
-	"purple/stone/redis"
-	"purple/pkg/resource"
 )
 
 var (
@@ -19,7 +19,7 @@ func init() {
 	tomlconfig.ParseTomlConfig(conf, &ServiceConfig)
 
 	// logger init
-	DefaultLoggerConfig.InitLoggerConfig(ServiceConfig.Logger)
+	InitLoggerConfig(ServiceConfig.Logger)
 
 	// redis init
 	resource.NewRedis(ServiceConfig.Redis)
@@ -28,14 +28,14 @@ func init() {
 	resource.NewMysqlGroup(ServiceConfig.Database)
 }
 
-type LoggerConfig struct {
-	Rotate  string `toml:"rotate"`
-	Level   string `toml:"level"`
-	LogPath string `toml:"logpath"`
+type Service struct {
+	WEBPort int64 `tomo:"web_port"`
+	RPCPort int64 `tomo:"rpc_port"`
 }
 
 type Config struct {
 	ServiceName string               `toml:"service_name"`
+	Service     Service              `toml:"service"`
 	Logger      LoggerConfig         `toml:"log"`
 	Database    []sql.SQLGroupConfig `toml:"database"`
 	Redis       []redis.RedisConfig  `toml:"redis"`

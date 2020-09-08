@@ -5,22 +5,22 @@ import (
 )
 
 type HomePageHandler struct {
-
 }
 
 func NewHomePageHandler() *HomePageHandler {
-	return &HomePageHandler{
-
-	}
+	return &HomePageHandler{}
 }
 
-func (m *HomePageHandler) Get (r *gin.Context) {
+func (m *HomePageHandler) Get(r *gin.Context) {
 	var (
 		code int64 = 0
 	)
 	r.JSON(200, gin.H{
-		"code": 	code,
+		"code":    code,
 		"message": "success",
-		"data":   map[string]string{},
+		"data": map[string]interface{}{
+			"name": "levin",
+			"age":  28,
+		},
 	})
 }

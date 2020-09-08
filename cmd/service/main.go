@@ -1,20 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"net"
 	"purple/gen-go/purple"
+	"purple/pkg/config"
 	"purple/pkg/service"
 	log "purple/stone/logging"
 
 	"google.golang.org/grpc"
 )
 
-const (
-	port = ":50051"
-)
-
 func main() {
-	listener, err := net.Listen("tcp", "port")
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", config.ServiceConfig.Service.RPCPort))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

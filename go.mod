@@ -10,6 +10,7 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/jinzhu/gorm v1.9.16
 	github.com/olekukonko/tablewriter v0.0.4
+	github.com/pkg/errors v0.8.1
 	github.com/sirupsen/logrus v1.6.0
 	github.com/vmihailenco/msgpack v4.0.4+incompatible
 	go.uber.org/zap v1.16.0
