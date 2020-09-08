@@ -18,6 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PurpleClient interface {
 	GetHomePage(ctx context.Context, in *HomePageParam, opts ...grpc.CallOption) (*HomePageResponse, error)
+	GetMember(ctx context.Context, in *GetMemberParam, opts ...grpc.CallOption) (*MemberResponse, error)
 }
 
 type purpleClient struct {
@@ -41,12 +42,26 @@ func (c *purpleClient) GetHomePage(ctx context.Context, in *HomePageParam, opts 
 	return out, nil
 }
 
+var purpleGetMemberStreamDesc = &grpc.StreamDesc{
+	StreamName: "GetMember",
+}
+
+func (c *purpleClient) GetMember(ctx context.Context, in *GetMemberParam, opts ...grpc.CallOption) (*MemberResponse, error) {
+	out := new(MemberResponse)
+	err := c.cc.Invoke(ctx, "/purple.Purple/GetMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PurpleService is the service API for Purple service.
 // Fields should be assigned to their respective handler implementations only before
 // RegisterPurpleService is called.  Any unassigned fields will result in the
 // handler for that method returning an Unimplemented error.
 type PurpleService struct {
 	GetHomePage func(context.Context, *HomePageParam) (*HomePageResponse, error)
+	GetMember   func(context.Context, *GetMemberParam) (*MemberResponse, error)
 }
 
 func (s *PurpleService) getHomePage(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -66,6 +81,23 @@ func (s *PurpleService) getHomePage(_ interface{}, ctx context.Context, dec func
 	}
 	return interceptor(ctx, in, info, handler)
 }
+func (s *PurpleService) getMember(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMemberParam)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return s.GetMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     s,
+		FullMethod: "/purple.Purple/GetMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return s.GetMember(ctx, req.(*GetMemberParam))
+	}
+	return interceptor(ctx, in, info, handler)
+}
 
 // RegisterPurpleService registers a service implementation with a gRPC server.
 func RegisterPurpleService(s grpc.ServiceRegistrar, srv *PurpleService) {
@@ -75,12 +107,21 @@ func RegisterPurpleService(s grpc.ServiceRegistrar, srv *PurpleService) {
 			return nil, status.Errorf(codes.Unimplemented, "method GetHomePage not implemented")
 		}
 	}
+	if srvCopy.GetMember == nil {
+		srvCopy.GetMember = func(context.Context, *GetMemberParam) (*MemberResponse, error) {
+			return nil, status.Errorf(codes.Unimplemented, "method GetMember not implemented")
+		}
+	}
 	sd := grpc.ServiceDesc{
 		ServiceName: "purple.Purple",
 		Methods: []grpc.MethodDesc{
 			{
 				MethodName: "GetHomePage",
 				Handler:    srvCopy.getHomePage,
+			},
+			{
+				MethodName: "GetMember",
+				Handler:    srvCopy.getMember,
 			},
 		},
 		Streams:  []grpc.StreamDesc{},
@@ -103,6 +144,11 @@ func NewPurpleService(s interface{}) *PurpleService {
 	}); ok {
 		ns.GetHomePage = h.GetHomePage
 	}
+	if h, ok := s.(interface {
+		GetMember(context.Context, *GetMemberParam) (*MemberResponse, error)
+	}); ok {
+		ns.GetMember = h.GetMember
+	}
 	return ns
 }
 
@@ -112,4 +158,5 @@ func NewPurpleService(s interface{}) *PurpleService {
 // use of this type is not recommended.
 type UnstablePurpleService interface {
 	GetHomePage(context.Context, *HomePageParam) (*HomePageResponse, error)
+	GetMember(context.Context, *GetMemberParam) (*MemberResponse, error)
 }

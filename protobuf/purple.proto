@@ -1,19 +1,26 @@
 syntax = "proto3";
 
-option go_package = "/purple";
-
 package purple;
+
+option go_package = "/purple";
 
 message HomePageParam {
     int64 id = 1;
 }
-
 message HomePageResponse {
     int64 id = 1;
     string name = 2;
 }
 
+message GetMemberParam {
+    int64 id = 1;
+}
+message MemberResponse {
+    int64 id = 1;
+    string name = 2;
+}
 
 service Purple {
     rpc GetHomePage (HomePageParam) returns (HomePageResponse) {}
+    rpc GetMember (GetMemberParam) returns (MemberResponse) {}
 }
