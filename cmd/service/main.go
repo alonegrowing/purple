@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"net"
 	"purple/gen-go/purple"
+	"purple/pkg/common/utils"
 	"purple/pkg/config"
 	"purple/pkg/service"
+
 	"google.golang.org/grpc"
-	"purple/pkg/utils"
 )
 
 func main() {
@@ -17,7 +18,7 @@ func main() {
 	srv := grpc.NewServer()
 	purple.RegisterPurpleService(srv, &purple.PurpleService{
 		GetHomePage: service.GetHomePage,
-		GetMember: service.GetMember,
+		GetMember:   service.GetMember,
 	})
 	err = srv.Serve(listener)
 	utils.PanicIfError(err)

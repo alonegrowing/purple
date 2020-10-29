@@ -6,12 +6,11 @@ import (
 )
 
 var (
-	REDIS_CLIENT_NOT_INIT = errors.New("redis client not init ")
+	REDIS_CLIENT_NOT_INIT = errors.New("redis client not init")
 )
 
 var defaultRedis map[string]*redis.Redis
 
-// need init
 func NewRedis(redisConfigs []redis.RedisConfig) error {
 
 	if defaultRedis == nil {

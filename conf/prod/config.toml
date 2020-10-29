@@ -27,3 +27,12 @@ read_timeout=600
 write_timeout=600
 database=0
 slow_time = 200
+
+[[kafka_consume]]
+consume_from="kafka_open_room"
+zkpoints="127.0.0.1:2181/config/inke/inf/mq/kafka01"
+topic = "publish_msg"
+group = "publish_msg_wheel_online_v1" #跟线上一致，以免重复处理
+initoffset =  -1
+process_timeout = 10
+commit_interval = 10

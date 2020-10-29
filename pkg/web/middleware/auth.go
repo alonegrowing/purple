@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"purple/pkg/macro"
+	"purple/pkg/common/macro"
 
 	"github.com/gin-gonic/gin"
 )

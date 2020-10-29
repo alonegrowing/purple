@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"purple/gen-go/purple"
+	"purple/pkg/common/utils"
+	"purple/pkg/config"
 	"time"
 
-	"purple/gen-go/purple"
-	"purple/pkg/config"
-	"purple/pkg/utils"
 	"google.golang.org/grpc"
 )
 

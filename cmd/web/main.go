@@ -8,5 +8,5 @@ import (
 
 func main() {
 	route := web.NewRouter()
-	route.Run(fmt.Sprintf(":%d", config.ServiceConfig.Service.WEBPort))
+	_ = route.Run(fmt.Sprintf(":%d", config.ServiceConfig.Service.WEBPort))
 }

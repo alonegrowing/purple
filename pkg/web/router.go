@@ -1,11 +1,11 @@
 package web
 
 import (
-	"purple/pkg/middleware"
+	"io/ioutil"
 	"purple/pkg/web/handler"
+	"purple/pkg/web/middleware"
 
 	"github.com/gin-gonic/gin"
-	"io/ioutil"
 )
 
 func NewRouter() *gin.Engine {
