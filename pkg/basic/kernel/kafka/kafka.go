@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	log "purple/stone/logging"
+	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
 
 	utils "git.inke.cn/BackendPlatform/golang/utils"
 	"github.com/Shopify/sarama"

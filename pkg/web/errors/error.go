@@ -1,6 +1,6 @@
 package errors
 
-import "purple/pkg/macro"
+import "github.com/alonegrowing/purple/pkg/macro"
 
 const httpMemberNotExist = 10000
 

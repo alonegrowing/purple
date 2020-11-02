@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"purple/pkg/config"
-	"purple/pkg/web"
+	"github.com/alonegrowing/purple/pkg/config"
+	"github.com/alonegrowing/purple/pkg/web"
 )
 
 func main() {

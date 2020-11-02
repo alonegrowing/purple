@@ -2,8 +2,8 @@ package web
 
 import (
 	"io/ioutil"
-	"purple/pkg/web/handler"
-	"purple/pkg/web/middleware"
+	"github.com/alonegrowing/purple/pkg/web/handler"
+	"github.com/alonegrowing/purple/pkg/web/middleware"
 
 	"github.com/gin-gonic/gin"
 )

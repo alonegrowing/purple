@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
-	"purple/stone/redis"
+	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
+	"github.com/alonegrowing/purple/pkg/basic/kernel/redis"
 )
 
 var (
@@ -28,8 +28,10 @@ func init() {
 }
 
 func main() {
-	_, err := r.Do("BLPOP", "NotExistKey", 1)
-	if err != redis.ErrTimeout {
+	reply, err := r.Do("TIME")
+	if err != nil {
 		log.Fatalf("Do: %s\n", err)
 	}
+	ss, _ := redis.Strings(reply, err)
+	log.Infof("stirng1:%s string2:%s", ss[0], ss[1])
 }

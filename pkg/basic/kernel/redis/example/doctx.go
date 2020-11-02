@@ -1,8 +1,8 @@
 package main
 
 import (
-	log "purple/stone/logging"
-	"purple/stone/redis"
+	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
+	"github.com/alonegrowing/purple/pkg/basic/kernel/redis"
 
 	"context"
 	"time"

@@ -14,8 +14,8 @@ import (
 	"time"
 
 	"github.com/olekukonko/tablewriter"
-	"purple/stone/logagent"
-	log "purple/stone/logging"
+	"github.com/alonegrowing/purple/pkg/basic/kernel/logagent"
+	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
 )
 
 var (

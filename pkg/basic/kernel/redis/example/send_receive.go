@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 	"os/signal"
-	"purple/stone/redis"
+	"github.com/alonegrowing/purple/pkg/basic/kernel/redis"
 	"time"
 )
 

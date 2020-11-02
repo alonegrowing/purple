@@ -2,7 +2,7 @@ package resource
 
 import (
 	"errors"
-	"purple/stone/redis"
+	"github.com/alonegrowing/purple/pkg/basic/kernel/redis"
 )
 
 var (

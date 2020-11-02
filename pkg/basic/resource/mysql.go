@@ -1,7 +1,7 @@
 package resource
 
 import (
-	"purple/stone/sql"
+	"github.com/alonegrowing/purple/pkg/basic/kernel/sql"
 )
 
 var DefaultDB *sql.Group

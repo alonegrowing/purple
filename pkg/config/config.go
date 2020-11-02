@@ -1,10 +1,10 @@
 package config
 
 import (
-	"purple/pkg/resource"
-	"purple/stone/redis"
-	"purple/stone/sql"
-	"purple/stone/tomlconfig"
+	"github.com/alonegrowing/purple/pkg/basic/resource"
+	"github.com/alonegrowing/purple/pkg/basic/kernel/redis"
+	"github.com/alonegrowing/purple/pkg/basic/kernel/sql"
+	"github.com/alonegrowing/purple/pkg/basic/kernel/tomlconfig"
 )
 
 var (

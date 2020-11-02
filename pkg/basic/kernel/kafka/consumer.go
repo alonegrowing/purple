@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	log "purple/pkg/basics/kernel/logging"
+	log "github.com/alonegrowing/purple/pkg/basics/kernel/logging"
 
 	"git.inke.cn/BackendPlatform/golang/utils"
 	tls "git.inke.cn/tpc/inf/go-tls"

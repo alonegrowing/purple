@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"purple/gen-go/purple"
+	"github.com/alonegrowing/purple/gen-go/purple"
 )
 
 func GetHomePage(ctx context.Context, in *purple.HomePageParam) (*purple.HomePageResponse, error) {

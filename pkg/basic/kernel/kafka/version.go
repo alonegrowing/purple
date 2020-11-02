@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	log "purple/stone/logging"
+	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
 
 	"github.com/Shopify/sarama"
 	kazoo "github.com/wvanbergen/kazoo-go"

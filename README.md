@@ -6,7 +6,7 @@
 - 支持 资源操作的打点监控
 
 - grpc : https://grpc.io/docs/languages/go/quickstart
-- protoc -I=protobuf --go_out=gen-go --go-grpc_out=gen-go protobuf/*.proto
+- protoc -I=proto --go_out=gen-go --go-grpc_out=gen-go proto/*.proto
 
 # required
 - go version go1.14.8 darwin/amd64

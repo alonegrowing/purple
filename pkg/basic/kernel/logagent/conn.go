@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	logf "purple/stone/logging"
+	logf "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
 )
 
 const (

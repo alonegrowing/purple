@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	log "purple/stone/logging"
+	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
 	"strings"
 	"time"
 

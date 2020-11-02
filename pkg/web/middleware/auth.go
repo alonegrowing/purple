@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"purple/pkg/common/macro"
+	"github.com/alonegrowing/purple/pkg/basic/macro"
 
 	"github.com/gin-gonic/gin"
 )

@@ -3,8 +3,8 @@ package redis
 import (
 	"github.com/garyburd/redigo/redis"
 
-	log "purple/stone/logging"
-	"purple/stone/utils"
+	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
+	"github.com/alonegrowing/purple/pkg/basic/kernel/util"
 
 	"context"
 	"errors"

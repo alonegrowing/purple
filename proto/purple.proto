@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package purple;
 
-option go_package = "/purple";
+option go_package = "/purple2";
 
 message HomePageParam {
     int64 id = 1;
