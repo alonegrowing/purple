@@ -11,6 +11,7 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/jinzhu/gorm v1.9.16
 	github.com/olekukonko/tablewriter v0.0.4
+	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pkg/errors v0.8.1
 	github.com/samuel/go-zookeeper v0.0.0-20200724154423-2164a8ac840e // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect

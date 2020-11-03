@@ -1,13 +1,10 @@
 package redis
 
 import (
-	"github.com/garyburd/redigo/redis"
-
-	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
-	"github.com/alonegrowing/purple/pkg/basic/kernel/util"
-
 	"context"
 	"errors"
+	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
+	"github.com/garyburd/redigo/redis"
 	"math/rand"
 	"os"
 	"strings"
@@ -653,9 +650,7 @@ func (r *Redis) randomDuration(n int64) time.Duration {
 
 func (r *Redis) do(cmd string, f func(interface{}, error) (interface{}, error), args ...interface{}) (reply interface{}, err error) {
 	stCode := redisSuccess
-	st := utils.NewServiceStatEntry("reclient", r.opts.ServerName)
 	defer func() {
-		st.End(cmd, stCode)
 		atomic.StoreInt64(&r.lastTime, time.Now().UnixNano())
 	}()
 	count := 0

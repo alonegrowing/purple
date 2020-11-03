@@ -9,8 +9,6 @@ import (
 	"time"
 
 	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
-
-	utils "git.inke.cn/BackendPlatform/golang/utils"
 	"github.com/Shopify/sarama"
 	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/samuel/go-zookeeper/zk"
@@ -261,8 +259,6 @@ func NewKafkaClient(conf KafkaProductConfig) (*KafkaClient, error) {
 				} else {
 					log.Warnf("[KafkaProducer] send message to %s error %s, brokers(%s)", conf.ProducerTo, perr.Error(), conf.Broken)
 				}
-				utils.ReportServiceEvent(P_KAFKA_PRE, conf.ProducerTo, "Topic."+perr.Msg.Topic+".AsyncSendStats", meta.eventTime, time.Now(),
-					finishMessageSpan(meta.span, -1, -1, perr.Err))
 				perr.Msg.Metadata = meta.oldMeta
 				if conf.GetError == true {
 					kc.perror <- makeProducterError(perr)
@@ -272,8 +268,6 @@ func NewKafkaClient(conf KafkaProductConfig) (*KafkaClient, error) {
 					return
 				}
 				meta := succ.Metadata.(*sendMeta)
-				utils.ReportServiceEvent(P_KAFKA_PRE, conf.ProducerTo, "Topic."+succ.Topic+".AsyncSendStats", meta.eventTime, time.Now(),
-					finishMessageSpan(meta.span, succ.Partition, succ.Offset, nil))
 				succ.Metadata = meta.oldMeta
 				if conf.GetSuccess == true {
 					msg := makeProducterMsg(succ)
@@ -309,24 +303,13 @@ func (ksc *KafkaSyncClient) SendSyncMsg(topic, key string, msg []byte) (int32, i
 	if ksc.producter == nil {
 		return 0, 0, fmt.Errorf("sync client not init,topic:%v", topic)
 	}
-	st := utils.NewServiceStatEntry(P_KAFKA_PRE, ksc.conf.ProducerTo)
 	partition, offset, err := ksc.producter.SendMessage(msgg)
-	code := KafkaSuccess
-	if err != nil {
-		code = KafkaSendError
-	}
-	st.End(topic+".SyncSendStatus", code)
 	return partition, offset, err
 }
 
 func (kc *KafkaClient) SendKeyMsg(topic string, key string, msg []byte) error {
-	remoteService := kc.conf.ProducerTo
-	stCode := KafkaSuccess
-	st := utils.NewServiceStatEntry(P_KAFKA_PRE, remoteService)
-	defer st.End("Topic."+topic, stCode)
 	if kc.producer == nil {
 		log.GenLog("kafka_util,error,producter,send msg ,producer nil,,producter to:", kc.conf.ProducerTo, ",topic:", topic, ",msg:", string(msg))
-		stCode = KafkaSendNotInit
 		return KAFKA_CLIENT_NOT_INIT
 	}
 	kc.sendmsg(topic, key, msg)

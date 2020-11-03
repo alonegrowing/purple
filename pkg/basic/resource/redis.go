@@ -12,20 +12,12 @@ var (
 var defaultRedis map[string]*redis.Redis
 
 func NewRedis(redisConfigs []redis.RedisConfig) error {
-
 	if defaultRedis == nil {
 		defaultRedis = make(map[string]*redis.Redis)
 	}
-
 	for _, conf := range redisConfigs {
-
 		client, err := redis.NewRedis(&conf)
-
-		if err != nil {
-			continue
-		}
-
-		if client == nil {
+		if err != nil || client == nil {
 			continue
 		}
 		defaultRedis[conf.ServerName] = client

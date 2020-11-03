@@ -8,10 +8,7 @@ import (
 	"sync"
 	"time"
 
-	log "github.com/alonegrowing/purple/pkg/basics/kernel/logging"
-
-	"git.inke.cn/BackendPlatform/golang/utils"
-	tls "git.inke.cn/tpc/inf/go-tls"
+	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
 	"github.com/Shopify/sarama"
 	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
@@ -104,10 +101,7 @@ func NewKafkaConsumeClient(conf KafkaConsumeConfig) (*KafkaConsumeClient, error)
 
 	go func() {
 		for err := range consumer.Errors() {
-			st := utils.NewServiceStatEntry(C_KAFKA_PRE, conf.ConsumeFrom)
 			log.GenLog("kafka_util,error,consume,group:", conf.Group, ",from:", conf.ConsumeFrom, ",topic:", conf.Topic, ",err:", err.Error())
-			st.End("consume_inner", KafkaConsumeError)
-
 			if conf.GetError == true {
 				kcc.err <- err
 			}
@@ -158,9 +152,7 @@ func (kcc *KafkaConsumeClient) Messages(closeChan chan bool, maxQueueSize int) c
 
 					}
 					ch <- message.Value
-					st := utils.NewServiceStatEntry(C_KAFKA_PRE, kcc.conf.ConsumeFrom)
 					kcc.consumer.CommitUpto(message)
-					st.End("recver_inner", KafkaSuccess)
 					offsets[message.Topic][message.Partition] = message.Offset
 				}
 			}
@@ -213,14 +205,11 @@ func (kcc *KafkaConsumeClient) GetMessages() <-chan *ConsumerMessage {
 		kcc.messageChan = make(chan *ConsumerMessage)
 		go func() {
 			for {
-				st := utils.NewStatEntry(C_KAFKA_PRE)
 				message, ok := <-kcc.consumer.Messages()
 				if !ok {
-					st.End("ConsumeClosed", KafkaSuccess)
 					close(kcc.messageChan)
 					return
 				}
-				st.End("Consume."+message.Topic, KafkaSuccess)
 				carrier := opentracing.TextMapCarrier{}
 				for _, h := range message.Headers {
 					carrier[string(h.Key)] = string(h.Value)
@@ -246,7 +235,6 @@ func (kcc *KafkaConsumeClient) GetMessages() <-chan *ConsumerMessage {
 					opentracinglog.Int64("offset", message.Offset),
 				)
 				ctx = opentracing.ContextWithSpan(ctx, span)
-				tls.SetContext(ctx)
 				kcc.messageChan <- convertConsumerMessage(ctx, message, carrier)
 			}
 		}()
@@ -258,7 +246,6 @@ func (kcc *KafkaConsumeClient) GetMessages() <-chan *ConsumerMessage {
 func (kcc *KafkaConsumeClient) CommitUpto(message *ConsumerMessage) {
 	span := opentracing.SpanFromContext(message.ctx)
 	if span != nil {
-		tls.Flush()
 		span.LogFields(
 			opentracinglog.String("mid", message.MessageID),
 			opentracinglog.String("event", "MessageCommit"),
@@ -267,10 +254,5 @@ func (kcc *KafkaConsumeClient) CommitUpto(message *ConsumerMessage) {
 		)
 		span.Finish()
 	}
-	if !message.CreateAt.IsZero() {
-		utils.ReportEvent(C_KAFKA_PRE, fmt.Sprintf("%s.commit_lag", message.Topic), message.CreateAt, time.Now(), 0)
-	}
-	st := utils.NewStatEntry(C_KAFKA_PRE)
 	kcc.consumer.CommitUpto(deConvertConsumerMessage(message))
-	st.End("Commit."+message.Topic, 0)
 }
