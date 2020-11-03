@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
+	log "github.com/alonegrowing/purple/pkg/kernel/logging"
 	"github.com/Shopify/sarama"
 	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"

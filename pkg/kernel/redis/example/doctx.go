@@ -1,8 +1,11 @@
 package main
 
 import (
-	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
-	"github.com/alonegrowing/purple/pkg/basic/kernel/redis"
+	log "github.com/alonegrowing/purple/pkg/kernel/logging"
+	"github.com/alonegrowing/purple/pkg/kernel/redis"
+
+	"context"
+	"time"
 )
 
 var (
@@ -28,10 +31,10 @@ func init() {
 }
 
 func main() {
-	reply, err := r.Do("TIME")
-	if err != nil {
-		log.Fatalf("Do: %s\n", err)
+	timeout := 20 * time.Millisecond
+	ctx, _ := context.WithTimeout(context.Background(), timeout)
+	reply, err := r.DoCtx(ctx, "BLPOP", "NotExistKey", 0)
+	if err != context.DeadlineExceeded {
+		log.Fatalf("TestTimeOut err: %s %v\n", err, reply)
 	}
-	ss, _ := redis.Strings(reply, err)
-	log.Infof("stirng1:%s string2:%s", ss[0], ss[1])
 }

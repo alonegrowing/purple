@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/alonegrowing/purple/pkg/basic/kernel/kafka"
-	log "github.com/alonegrowing/purple/pkg/basic/kernel/logging"
+	"github.com/alonegrowing/purple/pkg/kernel/kafka"
+	log "github.com/alonegrowing/purple/pkg/kernel/logging"
 )
 
 var (

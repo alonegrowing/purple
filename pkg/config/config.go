@@ -2,9 +2,9 @@ package config
 
 import (
 	"github.com/alonegrowing/purple/pkg/basic/resource"
-	"github.com/alonegrowing/purple/pkg/basic/kernel/redis"
-	"github.com/alonegrowing/purple/pkg/basic/kernel/sql"
-	"github.com/alonegrowing/purple/pkg/basic/kernel/tomlconfig"
+	"github.com/alonegrowing/purple/pkg/kernel/redis"
+	"github.com/alonegrowing/purple/pkg/kernel/sql"
+	"github.com/alonegrowing/purple/pkg/kernel/tomlconfig"
 )
 
 var (
