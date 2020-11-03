@@ -52,8 +52,6 @@ func InitKafkaProducer(producerConfigs []kafka.KafkaProductConfig) error {
 			}
 			syncProducerClientMap[config.ProducerTo] = client
 			fmt.Println(config.ProducerTo)
-			st.End(kafka.KAFKA_INIT, kafka.KafkaSuccess)
-
 		} else {
 			if _, ok := producerClientMap[config.ProducerTo]; ok {
 				continue

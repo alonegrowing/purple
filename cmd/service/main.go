@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"net"
-	"github.com/alonegrowing/purple/gen-go/purple2"
+	"github.com/alonegrowing/purple/gen-go/purple"
 	"github.com/alonegrowing/purple/pkg/basic/util"
 	"github.com/alonegrowing/purple/pkg/config"
 	"github.com/alonegrowing/purple/pkg/service"
@@ -16,7 +16,7 @@ func main() {
 	util.PanicIfError(err)
 
 	srv := grpc.NewServer()
-	purple2.RegisterPurpleService(srv, &purple2.PurpleService{
+	purple.RegisterPurpleService(srv, &purple.PurpleService{
 		GetHomePage: service.GetHomePage,
 		GetMember:   service.GetMember,
 	})

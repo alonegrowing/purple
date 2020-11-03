@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"strings"
 	"time"
-
-	utils "git.inke.cn/BackendPlatform/golang/utils"
 	"github.com/Shopify/sarama"
 	uuid "github.com/satori/go.uuid"
 
@@ -40,13 +38,10 @@ func (ksc *KafkaSyncClient) Send(ctx context.Context, message *ProducerMessage) 
 	ext.Component.Set(span, "inkelogic/go-kafkaproducer-sync")
 	ext.PeerService.Set(span, ksc.conf.ProducerTo)
 	ext.PeerAddress.Set(span, ksc.conf.Broken)
-
-	st := utils.NewServiceStatEntry(P_KAFKA_PRE, ksc.conf.ProducerTo)
 	span.LogFields(
 		opentracinglog.String("event", "ProduceMessage"),
 		opentracinglog.String("mid", message.MessageID))
 	partition, offset, err := ksc.producter.SendMessage(msg)
-	st.End("Topic."+message.Topic+".SyncSendStatus", finishMessageSpan(span, partition, offset, err))
 	return partition, offset, err
 }
 
@@ -55,13 +50,11 @@ func (ksc *KafkaClient) Send(ctx context.Context, message *ProducerMessage) (int
 	ext.Component.Set(span, "inkelogic/go-kafkaproducer-async")
 	ext.PeerService.Set(span, ksc.conf.ProducerTo)
 	ext.PeerAddress.Set(span, ksc.conf.Broken)
-	st := utils.NewServiceStatEntry(P_KAFKA_PRE, ksc.conf.ProducerTo)
 	span.LogFields(
 		opentracinglog.String("event", "ProduceMessage"),
 		opentracinglog.String("mid", message.MessageID))
 	msg.Metadata = &sendMeta{eventTime: now, span: span, mid: message.MessageID, oldMeta: message.Metadata}
 	(*ksc.producer).Input() <- msg
-	st.End("Topic."+message.Topic+".ASyncSendStatus", KafkaSuccess)
 	return -1, -1, nil
 }
 

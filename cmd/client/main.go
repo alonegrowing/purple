@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"github.com/alonegrowing/purple/gen-go/purple2"
+	"github.com/alonegrowing/purple/gen-go/purple"
 	"github.com/alonegrowing/purple/pkg/basic/util"
 	"github.com/alonegrowing/purple/pkg/config"
 	"time"
@@ -17,11 +17,11 @@ func main() {
 	defer conn.Close()
 	util.PanicIfError(err)
 
-	c := purple2.NewPurpleClient(conn)
+	c := purple.NewPurpleClient(conn)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	r1, err := c.GetHomePage(ctx, &purple2.HomePageParam{Id: 1226})
+	r1, err := c.GetHomePage(ctx, &purple.HomePageParam{Id: 1226})
 	util.PanicIfError(err)
 	log.Printf("Greeting: %d", r1.GetId())
 
