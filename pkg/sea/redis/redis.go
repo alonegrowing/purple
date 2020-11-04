@@ -3,7 +3,7 @@ package redis
 import (
 	"context"
 	"errors"
-	log "github.com/alonegrowing/purple/pkg/kernel/logging"
+	log "github.com/alonegrowing/purple/pkg/sea/logging"
 	"github.com/garyburd/redigo/redis"
 	"math/rand"
 	"os"

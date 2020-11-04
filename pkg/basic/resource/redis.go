@@ -2,7 +2,7 @@ package resource
 
 import (
 	"errors"
-	"github.com/alonegrowing/purple/pkg/kernel/redis"
+	"github.com/alonegrowing/purple/pkg/sea/redis"
 )
 
 var (

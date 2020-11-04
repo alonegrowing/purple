@@ -1,8 +1,8 @@
 package main
 
 import (
-	log "github.com/alonegrowing/purple/pkg/kernel/logging"
-	"github.com/alonegrowing/purple/pkg/kernel/redis"
+	log "github.com/alonegrowing/purple/pkg/sea/logging"
+	"github.com/alonegrowing/purple/pkg/sea/redis"
 )
 
 var (

@@ -1,7 +1,7 @@
 package config
 
 import (
-	log "github.com/alonegrowing/purple/pkg/kernel/logging"
+	log "github.com/alonegrowing/purple/pkg/sea/logging"
 )
 
 type LoggerConfig struct {
